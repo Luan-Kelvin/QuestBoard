@@ -41,7 +41,6 @@ public class User implements UserDetails {
     private String password;
 
     @NotNull
-    @Column(nullable = false)
     private LocalDate creationDate;
 
     @OneToMany(mappedBy = "creatorUser", fetch = FetchType.LAZY)
