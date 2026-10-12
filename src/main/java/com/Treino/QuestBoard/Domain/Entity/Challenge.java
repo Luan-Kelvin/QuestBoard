@@ -38,7 +38,6 @@ public class Challenge {
     private ChallengeStatus status;
 
     @NotNull
-    @Column(nullable = false)
     private LocalDate creationDate;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -48,8 +47,8 @@ public class Challenge {
     @ManyToMany
     @JoinTable(
             name = "challenge_participants",
-            joinColumns = @JoinColumn(name = "id_challenge"),
-            inverseJoinColumns = @JoinColumn(name = "id_user")
+            joinColumns = @JoinColumn(name = "id_challenge", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "id_user", nullable = false)
     )
     private List<User> userParticipated = new ArrayList<>();
 
