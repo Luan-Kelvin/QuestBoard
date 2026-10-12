@@ -1,4 +1,4 @@
-package com.Treino.QuestBoard.Entity;
+package com.Treino.QuestBoard.Domain.Entity;
 
 
 import jakarta.persistence.*;
