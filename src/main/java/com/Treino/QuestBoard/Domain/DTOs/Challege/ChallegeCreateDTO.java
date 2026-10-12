@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 
-public record ChanllegeCreateDTO(
+public record ChallegeCreateDTO(
         @NotBlank
         String title,
 
@@ -13,9 +13,6 @@ public record ChanllegeCreateDTO(
 
         @NotBlank
         String difficulty,
-
-        @NotBlank
-        String status,
 
         @NotNull
         LocalDate creationDate,
