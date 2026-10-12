@@ -1,7 +1,7 @@
 package com.Treino.QuestBoard.Domain.DTOs.Challege;
 
 
-import com.Treino.QuestBoard.Domain.Entity.User;
+import com.Treino.QuestBoard.Domain.DTOs.User.UserResponseDTO;
 import com.Treino.QuestBoard.Domain.Enum.ChallengeDifficulty;
 import com.Treino.QuestBoard.Domain.Enum.ChallengeStatus;
 
@@ -21,8 +21,8 @@ public record ChallegeResponseDTO(
 
         LocalDate creationDate,
 
-        User creatorUser,
+        Long id_creatorUser,
 
-        List<User> userParticipated
+        List<UserResponseDTO> userParticipated
 ) {
 }
