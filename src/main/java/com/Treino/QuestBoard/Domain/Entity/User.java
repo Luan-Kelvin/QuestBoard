@@ -3,6 +3,7 @@ package com.Treino.QuestBoard.Domain.Entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -13,6 +14,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -38,14 +40,28 @@ public class User implements UserDetails {
     @NotBlank
     private String password;
 
-    @NotBlank
+    @NotNull
+    @Column(nullable = false)
     private LocalDate creationDate;
+
+    @OneToMany(mappedBy = "creatorUser", fetch = FetchType.LAZY)
+    private List<Challenge> challengesCreated = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "userParticipated",fetch = FetchType.LAZY)
+    private List<Challenge> challengesParticipated = new ArrayList<>();
 
     public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.creationDate = LocalDate.now();
+    }
+
+    @PrePersist
+    public void prePersist(){
+        if (this.creationDate == null){
+            this.creationDate = LocalDate.now();
+        }
     }
 
     @Override
