@@ -8,6 +8,7 @@ import jakarta.validation.constraints.Pattern;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -30,14 +31,17 @@ public class User implements UserDetails {
     private Long id;
 
     @NotBlank
+    @Setter
     private String name;
 
     @NotBlank
     @Column(unique = true)
+    @Setter
     @Pattern(regexp = "^[0-9A-Za-zA-ÿ ,.%$#*]+@[A-Za-z]+\\.[A-Za-z]{2,}$", message = "Email com formato inválido.")
     private String email;
 
     @NotBlank
+    @Setter
     private String password;
 
     @NotNull
