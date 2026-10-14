@@ -2,6 +2,7 @@ package com.Treino.QuestBoard.Service;
 
 import com.Treino.QuestBoard.Domain.DTOs.User.UserCreateDTO;
 import com.Treino.QuestBoard.Domain.DTOs.User.UserResponseDTO;
+import com.Treino.QuestBoard.Domain.DTOs.User.UserUpdateDTO;
 import com.Treino.QuestBoard.Domain.Entity.User;
 import com.Treino.QuestBoard.Domain.Respository.UserRepository;
 import com.Treino.QuestBoard.Exceptions.UserAlreadyExsistsException;
@@ -81,5 +82,28 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundException(String.format("ERRO! Usuário com ID %s não foi encontrado.", id)));
 
         userRepository.delete(user);
+    }
+
+    @Transactional
+    public UserResponseDTO updateUser(UserUpdateDTO dto){
+        User user = userRepository.findById(dto.id())
+                .orElseThrow(() -> new UserNotFoundException(String.format("ERRO! Usuário com ID %s não foi encontrado.", dto.id())));
+
+        if (dto.name() != null){
+            user.setName(dto.name());
+        }
+
+        if (dto.email() != null){
+            user.setEmail(dto.email());
+        }
+
+        if (dto.password() != null){
+            passwordEncoder.encode(dto.password());
+            user.setPassword(dto.password());
+        }
+
+        User userSave = userRepository.save(user);
+
+        return conversorSerivce.converterUser(userSave);
     }
 }
